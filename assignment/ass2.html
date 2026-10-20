@@ -3,14 +3,17 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Assignment 2 - Multiplication Table</title>
+  <!-- CSS -->
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 24px; text-align: center; }
     .container { max-width: 500px; margin: 0 auto; }
     input, button { display: block; width: 90%; margin: 10px auto; padding: 9px; box-sizing: border-box; background: #fff; border: 1px solid #000; }
     button { cursor: pointer; } #result { border: 1px solid #000; padding: 12px; min-height: 30px; text-align: left; }
   </style>
+<!-- HTML -->
 </head>
 <body><main class="container"><h1>Multiplication Table Generator</h1><input id="number" type="number" placeholder="Enter a number"><input id="range" type="number" placeholder="Enter range"><button onclick="generate()">Generate Table</button><div id="result"></div><button onclick="clearResult()">Reset</button></main>
+<!-- JavaScript -->
 <script>
   function generate(){const n=Number(number.value), limit=Number(range.value); result.innerHTML=''; if(!n||!limit||limit<1){result.textContent='Enter a valid number and range.';return;} for(let i=1;i<=limit;i++){const line=document.createElement('div');line.textContent=n+' × '+i+' = '+n*i;result.appendChild(line);}}
   function clearResult(){number.value='';range.value='';result.innerHTML='';}

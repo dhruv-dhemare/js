@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Assignment 1 - Area Calculator</title>
+  <!-- CSS -->
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 24px; text-align: center; }
     .container { max-width: 900px; margin: 0 auto; }
@@ -13,6 +14,7 @@
     .result { min-height: 20px; }
   </style>
 </head>
+<!-- HTML -->
 <body>
   <main class="container">
     <h1>Area Calculator</h1>
@@ -21,6 +23,7 @@
     <section class="card"><h2>Circle</h2><input id="radius" type="number" placeholder="Radius"><button onclick="circleArea()">Calculate</button><button onclick="resetCircle()">Reset Circle</button><p id="circleResult" class="result"></p></section>
     <button onclick="resetAll()">Reset</button>
   </main>
+  <!-- JavaScript -->
   <script>
     function number(id) { return Number(document.getElementById(id).value); }
     function triangleArea() { const a=number('side1'), b=number('side2'), c=number('side3'); const r=document.getElementById('triangleResult'); if(a<=0||b<=0||c<=0||a+b<=c||a+c<=b||b+c<=a){r.textContent='Enter three valid triangle sides.';return;} const s=(a+b+c)/2; r.textContent='Area: '+Math.sqrt(s*(s-a)*(s-b)*(s-c)).toFixed(2)+' sq. units'; }
