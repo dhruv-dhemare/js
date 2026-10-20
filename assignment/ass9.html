@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assignment 9 - Student Information Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 24px; text-align: center; }
+    .container { max-width: 520px; margin: auto; padding: 18px; border: 1px solid #000; }
+    label { display: block; text-align: left; margin-top: 10px; }
+    input, textarea, button { display: block; width: 100%; margin: 6px 0; padding: 9px; box-sizing: border-box; background: #fff; border: 1px solid #000; }
+    textarea { height: 80px; }
+    button { cursor: pointer; margin-top: 16px; }
+    .error { min-height: 18px; margin: 2px 0 8px; text-align: left; color: red; }
+    .gender { text-align: left; margin-top: 12px; }
+    .gender label { display: inline-block; width: auto; margin: 4px 10px 4px 0; }
+    .gender input { display: inline-block; width: auto; margin: 0 4px 0 0; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <main id="formContainer" class="container">
+    <h1>Student Information Form</h1>
+    <form id="studentForm">
+      <label for="name">Name</label>
+      <input id="name" type="text">
+      <p id="nameError" class="error"></p>
+
+      <label for="address">Address</label>
+      <textarea id="address"></textarea>
+      <p id="addressError" class="error"></p>
+
+      <label for="city">City</label>
+      <input id="city" type="text">
+      <p id="cityError" class="error"></p>
+
+      <label for="state">State</label>
+      <input id="state" type="text">
+      <p id="stateError" class="error"></p>
+
+      <div class="gender">
+        <strong>Gender</strong>
+        <label><input name="gender" type="radio" value="Male">Male</label>
+        <label><input name="gender" type="radio" value="Female">Female</label>
+        <label><input name="gender" type="radio" value="Other">Other</label>
+      </div>
+      <p id="genderError" class="error"></p>
+
+      <label for="mobile">Mobile Number</label>
+      <input id="mobile" type="text" inputmode="numeric" maxlength="10">
+      <p id="mobileError" class="error"></p>
+
+      <label for="email">Email ID</label>
+      <input id="email" type="email">
+      <p id="emailError" class="error"></p>
+
+      <button type="submit">Submit</button>
+      <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+  </main>
+
+  <main id="successPage" class="container hidden">
+    <h1>Congratulations</h1>
+    <p id="welcomeMessage"></p>
+    <button id="backButton">Go Back</button>
+  </main>
+
+  <script>
+    const form = document.getElementById('studentForm');
+    const nameField = document.getElementById('name');
+    const addressField = document.getElementById('address');
+    const cityField = document.getElementById('city');
+    const stateField = document.getElementById('state');
+    const mobileField = document.getElementById('mobile');
+    const emailField = document.getElementById('email');
+    const nameErrorMessage = document.getElementById('nameError');
+    const addressErrorMessage = document.getElementById('addressError');
+    const cityErrorMessage = document.getElementById('cityError');
+    const stateErrorMessage = document.getElementById('stateError');
+    const genderErrorMessage = document.getElementById('genderError');
+    const mobileErrorMessage = document.getElementById('mobileError');
+    const emailErrorMessage = document.getElementById('emailError');
+    const formContainer = document.getElementById('formContainer');
+    const successPage = document.getElementById('successPage');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const backButton = document.getElementById('backButton');
+    const namePattern = /^[A-Za-z ]+$/;
+    const mobilePattern = /^[0-9]{10}$/;
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      document.querySelectorAll('.error').forEach(function (message) { message.textContent = ''; });
+      let valid = true;
+      const studentName = nameField.value.trim();
+      const studentAddress = addressField.value.trim();
+      const studentCity = cityField.value.trim();
+      const studentState = stateField.value.trim();
+      const mobileNumber = mobileField.value.trim();
+      const emailAddress = emailField.value.trim();
+      const selectedGender = document.querySelector('input[name="gender"]:checked');
+
+      if (studentName === '') { nameErrorMessage.textContent = 'Name is required.'; valid = false; }
+      else if (!namePattern.test(studentName)) { nameErrorMessage.textContent = 'Name can contain only letters and spaces.'; valid = false; }
+      if (studentAddress === '') { addressErrorMessage.textContent = 'Address is required.'; valid = false; }
+      if (studentCity === '') { cityErrorMessage.textContent = 'City is required.'; valid = false; }
+      else if (!namePattern.test(studentCity)) { cityErrorMessage.textContent = 'City can contain only letters and spaces.'; valid = false; }
+      if (studentState === '') { stateErrorMessage.textContent = 'State is required.'; valid = false; }
+      else if (!namePattern.test(studentState)) { stateErrorMessage.textContent = 'State can contain only letters and spaces.'; valid = false; }
+      if (!selectedGender) { genderErrorMessage.textContent = 'Please select a gender.'; valid = false; }
+      if (mobileNumber === '') { mobileErrorMessage.textContent = 'Mobile number is required.'; valid = false; }
+      else if (!mobilePattern.test(mobileNumber)) { mobileErrorMessage.textContent = 'Mobile number must contain exactly 10 digits.'; valid = false; }
+      if (emailAddress === '') { emailErrorMessage.textContent = 'Email address is required.'; valid = false; }
+      else if (!emailPattern.test(emailAddress)) { emailErrorMessage.textContent = 'Enter a valid email address, such as name@example.com.'; valid = false; }
+
+      if (valid) {
+        formContainer.classList.add('hidden');
+        successPage.classList.remove('hidden');
+        welcomeMessage.textContent = 'Welcome, ' + studentName + '. Your information was submitted successfully.';
+      }
+    });
+
+    function resetForm() {
+      form.reset();
+      document.querySelectorAll('.error').forEach(function (message) { message.textContent = ''; });
+    }
+
+    backButton.onclick = function () {
+      successPage.classList.add('hidden');
+      formContainer.classList.remove('hidden');
+    };
+  </script>
+</body>
+</html>

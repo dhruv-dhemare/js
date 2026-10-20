@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Assignment 3 - String Operations</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 24px; text-align: center; } .container { max-width: 850px; margin: 0 auto; } .card { display: inline-block; vertical-align: top; width: 340px; margin: 8px; padding: 16px; border: 1px solid #000; box-sizing: border-box; } input, button { display: block; width: 90%; margin: 9px auto; padding: 8px; box-sizing: border-box; background: #fff; border: 1px solid #000; } button { cursor: pointer; } .result { min-height: 22px; }
+</style></head>
+<body><main class="container"><h1>String Operations</h1><section class="card"><h2>Using Standard Methods</h2><input id="standardText" placeholder="Enter a string"><input id="standardOld" maxlength="1" placeholder="Character to replace"><input id="standardNew" maxlength="1" placeholder="New character"><button onclick="reverse('standard')">Reverse</button><button onclick="replaceChars('standard')">Replace Characters</button><button onclick="palindrome('standard')">Check Palindrome</button><button onclick="resetCard('standard')">Reset</button><p id="standardResult" class="result"></p></section><section class="card"><h2>Without Standard Methods</h2><input id="manualText" placeholder="Enter a string"><input id="manualOld" maxlength="1" placeholder="Character to replace"><input id="manualNew" maxlength="1" placeholder="New character"><button onclick="reverse('manual')">Reverse</button><button onclick="replaceChars('manual')">Replace Characters</button><button onclick="palindrome('manual')">Check Palindrome</button><button onclick="resetCard('manual')">Reset</button><p id="manualResult" class="result"></p></section></main>
+<script>
+  function value(p,s){return document.getElementById(p+s).value;}
+  function show(p,t){document.getElementById(p+'Result').textContent=t;}
+  function reverse(p){let s=value(p,'Text'), out=''; if(p==='standard') out=s.split('').reverse().join(''); else for(let i=s.length-1;i>=0;i--) out+=s[i]; show(p,'Reversed: '+out);}
+  function replaceChars(p){let s=value(p,'Text'), old=value(p,'Old'), n=value(p,'New'); if(!old||!n){show(p,'Enter both characters.');return;} let out=''; if(p==='standard') out=s.split(old).join(n); else for(let i=0;i<s.length;i++) out+=s[i]===old?n:s[i]; show(p,'Updated: '+out);}
+  function palindrome(p){let s=value(p,'Text').toLowerCase().replace(/[^a-z0-9]/g,''); let r=''; if(p==='standard') r=s.split('').reverse().join(''); else for(let i=s.length-1;i>=0;i--) r+=s[i]; show(p,s===r?'It is a palindrome.':'It is not a palindrome.');}
+  function resetCard(p){['Text','Old','New'].forEach(s=>document.getElementById(p+s).value='');show(p,'');}
+</script></body></html>
